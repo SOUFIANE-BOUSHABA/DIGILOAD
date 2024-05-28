@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@CrossOrigin("*")
 @RestController
 public class AuthenticationController {
 
@@ -24,6 +25,7 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> register(@RequestBody User user) {
         return authService.register(user);
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody User user) {
