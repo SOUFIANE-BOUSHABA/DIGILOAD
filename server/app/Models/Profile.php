@@ -30,4 +30,5 @@ class Profile extends Model
         'Instagram',
         'Inscription_date145',
     ];
+    
 }
