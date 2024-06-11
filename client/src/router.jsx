@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
+import Tableau from './pages/Tableau';
 
 const AppRouter = () => (
   <Router>
@@ -12,8 +13,9 @@ const AppRouter = () => (
       <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Layout />}>
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/profile" element={<Profile />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/tableau" element={<Tableau />} />
       </Route>
      
     </Routes>

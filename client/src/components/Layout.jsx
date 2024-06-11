@@ -8,11 +8,11 @@ import '../assets/css/Layout.css';
 const Layout = () => {
   return (
     <body className='bg-slate-50'>
-           <div className="flex min-h-screen">
+           <div className="flex">
             <Sidebar />
             <div className="flex-1">
                 <Header />
-                <div className="p-8">
+                <div className="responsive p-8">
                 <Outlet />
                 </div>
             </div>

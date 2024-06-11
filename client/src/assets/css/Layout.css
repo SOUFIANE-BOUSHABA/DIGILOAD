@@ -3,4 +3,9 @@ body {
     background-position: bottom right;
     background-repeat: no-repeat;
   }
+
+  .responsive {
+    max-width:95%;
+    height: auto;
+  }
   
