@@ -12,4 +12,8 @@ class ProfileRepository implements ProfileRepositoryInterface
     return Profile::create($data);
    }
 
+   public function update(Profile $profile, array $data) : Profile{
+    $profile->update($data);
+    return $profile;
+   }
 }

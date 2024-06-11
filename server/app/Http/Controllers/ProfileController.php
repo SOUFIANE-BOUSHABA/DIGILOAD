@@ -23,7 +23,31 @@ class ProfileController extends Controller
     }
 
 
+    public function update(ProfileRequest $request, $id)
+    {
+        $profile = $this->profileService->update($request->all(), $id);
+        return response()->json($profile, 200);
+    }
 
+    public function destroy($id)
+    {
+        $this->profileService->destroy($id);
+        return response()->json([
+            "message"=> "done",
+        ] , 200);
+    }
+
+    // get one profile
+    public function getOne($id)
+    {
+        $profile = $this->profileService->getOne($id);
+        if (!$profile) {
+            return response()->json([
+                "message" => "Profile not found"
+            ], 404);
+        }
+        return response()->json($profile, 200);
+    }
 
     public function getAll()
     {
