@@ -1,0 +1,42 @@
+.sidebar {
+    width: 16rem;
+    height: 100vh;
+    transition: width 0.3s;
+}
+
+.sidebar.collapsed {
+    width: 4rem;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar a .link-text {
+    display: block;
+}
+
+.sidebar.collapsed a .link-text {
+    display: none;
+}
+
+.sidebar a:hover {
+    background-color: #f9fafb;
+}
+
+.toggle-icon {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.toggle-icon.collapsed img {
+    transform: rotate(180deg);
+}
+
+.main-content {
+    flex: 1;
+    background-color: #f1f5f9;
+    padding: 2rem;
+}

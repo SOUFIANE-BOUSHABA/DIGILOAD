@@ -1,12 +1,12 @@
-
 import React from 'react';
 
 const Dashboard = () => {
-    return (
-        <>
-        <h1>Dashboard Page</h1>
-        </>
-    );
-    };
+  return (
+    <div>
+      <h2 className="text-xl font-bold mb-2">Dashboard</h2>
+      <p>Welcome to the dashboard.</p>
+    </div>
+  );
+};
 
 export default Dashboard;
