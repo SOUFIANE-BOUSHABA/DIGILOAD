@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../axiosConfig';
+import Papa from 'papaparse';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import Filter from '../assets/img/Filter_alt_fill.png';
 import '../assets/css/Tableau.css';
 import { Link } from 'react-router-dom';
+
+
 
 const Tableau = () => {
   const [currentMonth, setCurrentMonth] = useState(0);
@@ -10,12 +15,13 @@ const Tableau = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [profiles, setProfiles] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(null);
+  const [csvData, setCsvData] = useState([]);
 
   const months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/profiles');
+      const response = await axios.get('/profiles');
       setProfiles(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -25,6 +31,27 @@ const Tableau = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const data = profiles.map(profile => ({
+      ID: profile.id,
+      Nom: profile.lastName,
+      Prénom: profile.firstName,
+      Email: profile.email,
+      'Numéro de tel': profile.tel,
+      'Date de naissance': profile.birthDay,
+      Sexe: profile.sexe,
+      Pays: profile.Pays,
+      Ville: profile.Ville,
+      Langue: profile.Langue,
+      'Organisme de financement': profile.organisme,
+      Qualité: profile.Qualite,
+      Intitulé: profile.Intitule,
+      Secteur: profile.Secteur,
+      'Formation PV': profile.Formation
+    }));
+    setCsvData(data);
+  }, [profiles]);
 
   const toggleForm = () => {
     setIsFormVisible(!isFormVisible);
@@ -62,29 +89,101 @@ const Tableau = () => {
 
   const handleDelete = async (profileId) => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/delete/${profileId}`);
+      await axios.delete(`/delete/${profileId}`);
       setProfiles(profiles.filter(profile => profile.id !== profileId));
     } catch (error) {
       console.error('Error deleting profile:', error);
     }
   };
 
+  const handleExportCSV = () => {
+    const csvDataString = Papa.unparse(csvData); 
+    const blob = new Blob([csvDataString], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `profiles_${currentYear}_${months[currentMonth]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+  
+
+  const handleExportPDF = () => {
+    const doc = new jsPDF();
+    doc.autoTable({
+        theme: 'striped', 
+        styles: { fontSize: 6, cellPadding: 1, overflow: 'linebreak' }, 
+        columnStyles: { 0: { cellWidth: 'wrap' } }, 
+      head: [
+        [
+          "ID",
+          "Nom",
+          "Prénom",
+          "Email",
+          "Numéro de tel",
+          "Date de naissance",
+          "Sexe",
+          "Pays",
+          "Ville",
+          "Langue",
+          "Organisme de financement",
+          "Qualité",
+          "Intitulé",
+          "Secteur",
+          "Formation PV",
+        ],
+      ],
+      body: profiles.map((profile) => [
+        profile.id,
+        profile.lastName,
+        profile.firstName,
+        profile.email,
+        profile.tel,
+        profile.birthDay,
+        profile.sexe,
+        profile.Pays,
+        profile.Ville,
+        profile.Langue,
+        profile.organisme,
+        profile.Qualite,
+        profile.Intitule,
+        profile.Secteur,
+        profile.Formation,
+      ]),
+    });
+    const pdfBlob = doc.output('blob');
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    const link = document.createElement("a");
+    link.href = pdfUrl;
+    link.download = `profiles_${currentYear}_${months[currentMonth]}.pdf`; 
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(pdfUrl);
+};
+
+
+
   return (
-    <div className="rounded-md max-w-[1100px]">
+    <div className=" tableau rounded-md ">
       <div className="gap-8">
         <div className="container mb-4 mx-auto">
           <div className="flex justify-end">
-            <div className="relative inline-block">
-              <select name="export" id="export-select" className="block appearance-none w-[200px] bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-500">
-                <option value="">Export list</option>
-                <option value="csv">CSV</option>
-                <option value="pdf">PDF</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path d="M7 10l5 5 5-5H7z" />
-                </svg>
-              </div>
+            <div className="relative inline-block flex gap-4">
+         
+             
+
+                    <button className="block appearance-none w-[200px] bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-500" onClick={handleExportCSV}>
+                    Export as CSV
+                    </button>
+      
+                    <button className="block appearance-none w-[200px] bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-500" onClick={handleExportPDF}>
+                        Export as PDF
+                    </button>
             </div>
           </div>
 
@@ -93,8 +192,8 @@ const Tableau = () => {
               <img src={Filter} alt="" className="h-6" />
               Filters
             </div>
-            <div className="flex gap-4">
-              <div className="flex gap-4 bg-blue-200 px-4 lg:rounded text-[10px] text-center">
+            <div className="flex gap-4 ">
+              <div className="flex justify-evenly gap-4 w-[200px] bg-blue-200 px-4 lg:rounded text-[10px] text-center">
                 <div className="grid">
                   <div className="rotate-90 cursor-pointer" onClick={handlePrevMonthClick}>{"<"}</div>
                   <div>{months[currentMonth]}</div>
@@ -139,7 +238,7 @@ const Tableau = () => {
         <div className="container mx-auto">
           <div className="flex overflow-hidden overflow-x-auto mx-auto items-center mb-8">
             <div className="w-full lg:rounded" style={{ maxHeight: '400px', overflowY: 'auto' }}>
-              <table className="overflow-x-auto w-full lg:rounded">
+              <table id="profile-table" className="overflow-x-auto w-full lg:rounded">
                 <thead className="bg-gray-50 mb-4 rounded-md shadow-md">
                   <tr>
                     <th scope="col" className="px-4 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">ID</th>
@@ -180,7 +279,7 @@ const Tableau = () => {
                       <td className="px-4 py-1 text-[10px]">{profile.Formation}</td>
                       <td className="px-4 py-1 text-[10px] relative">
                         <button
-                          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          className="text-black  focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                           type="button"
                           onClick={() => toggleDropdown(profile.id)}
                         >
