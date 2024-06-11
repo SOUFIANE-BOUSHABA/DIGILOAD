@@ -22,14 +22,23 @@ const Sidebar = () => {
         <img src={leftArrow} alt="Toggle Sidebar" className="w-6 h-4" />
       </div>
       <nav className="mt-10 flex flex-col space-y-1">
-        <NavLink to="/dashboard" className="py-2.5 px-4 text-gray-700 flex items-center gap-2 hover:rounded-tl-full hover:rounded-bl-full">
+      <NavLink to="/dashboard" className="py-2.5 px-4 text-gray-700 flex items-center gap-2 hover:rounded-tl-full hover:rounded-bl-full">
           <img src={dashboardIcon} alt="Dashboard" className="w-4 h-4" /> <span className="link-text">Dashboard</span>
         </NavLink>
         <NavLink to="/profile" className="py-2.5 px-4 text-gray-700 flex items-center gap-2 hover:rounded-tl-full hover:rounded-bl-full">
           <img src={dashboardIcon} alt="Profile" className="w-4 h-4" /> <span className="link-text">Profile</span>
         </NavLink>
-        <NavLink to="/other" className="py-2.5 px-4 text-gray-700 flex items-center gap-2 hover:rounded-tl-full hover:rounded-bl-full">
-          <img src={dashboardIcon} alt="Other" className="w-4 h-4" /> <span className="link-text">Other Page</span>
+        <NavLink to="/mail" className="py-2.5 px-4 text-gray-700 flex items-center gap-2 hover:rounded-tl-full hover:rounded-bl-full">
+          <img src={dashboardIcon} alt="Mail" className="w-4 h-4" /> <span className="link-text">Mail</span>
+        </NavLink>
+        <NavLink to="/workflow" className="py-2.5 px-4 text-gray-700 flex items-center gap-2 hover:rounded-tl-full hover:rounded-bl-full">
+          <img src={dashboardIcon} alt="Workflow" className="w-4 h-4" /> <span className="link-text">Workflow</span>
+        </NavLink>
+        <NavLink to="/analytics" className="py-2.5 px-4 text-gray-700 flex items-center gap-2 hover:rounded-tl-full hover:rounded-bl-full">
+          <img src={dashboardIcon} alt="Analytics" className="w-4 h-4" /> <span className="link-text">Analytics</span>
+        </NavLink>
+        <NavLink to="/organisme" className="py-2.5 px-4 text-gray-700 flex items-center gap-2 hover:rounded-tl-full hover:rounded-bl-full">
+          <img src={dashboardIcon} alt="Organisme" className="w-4 h-4" /> <span className="link-text">Organisme</span>
         </NavLink>
       </nav>
       <div className="pb-6 pl-4 mt-auto">
