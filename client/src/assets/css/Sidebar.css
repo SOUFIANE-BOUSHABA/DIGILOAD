@@ -18,9 +18,15 @@
     display: block;
 }
 
+nav a .link-text {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #26528f;
+}
 .sidebar.collapsed a .link-text {
     display: none;
 }
+
 
 .sidebar a:hover {
     background-color: #f9fafb;
@@ -40,3 +46,10 @@
     background-color: #f1f5f9;
     padding: 2rem;
 }
+
+.sidebar a.active-link {
+    background-color: #f9fafb;
+    font-weight: bold; 
+    color: #26528f;
+    border-radius: 50px 0 0 50px;
+  }
