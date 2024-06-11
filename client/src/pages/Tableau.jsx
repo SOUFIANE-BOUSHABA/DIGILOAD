@@ -3,9 +3,11 @@ import axios from '../axiosConfig';
 import Papa from 'papaparse';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import Filter from '../assets/img/Filter_alt_fill.png';
 import '../assets/css/Tableau.css';
 import { Link } from 'react-router-dom';
+
+
+import Filter from '../assets/img/Filter_alt_fill.png';
 
 
 
@@ -278,6 +280,8 @@ const Tableau = () => {
                       <td className="px-4 py-1 text-[10px]">{profile.Secteur}</td>
                       <td className="px-4 py-1 text-[10px]">{profile.Formation}</td>
                       <td className="px-4 py-1 text-[10px] relative">
+
+
                         <button
                           className="text-black  focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                           type="button"
