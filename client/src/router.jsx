@@ -6,6 +6,7 @@ import Profile from './pages/Profile';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
 import Tableau from './pages/Tableau';
+import UpdateProfile from './pages/UpdateProfile'; 
 
 const AppRouter = () => (
   <Router>
@@ -16,6 +17,7 @@ const AppRouter = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/tableau" element={<Tableau />} />
+          <Route path="/profile/update/:id" element={<UpdateProfile/>} />
       </Route>
      
     </Routes>

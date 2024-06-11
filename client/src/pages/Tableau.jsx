@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../axiosConfig';
+import axios from 'axios';
 import Filter from '../assets/img/Filter_alt_fill.png';
 import '../assets/css/Tableau.css';
+import { Link } from 'react-router-dom';
 
 const Tableau = () => {
   const [currentMonth, setCurrentMonth] = useState(0);
@@ -14,7 +15,7 @@ const Tableau = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('/profiles');
+      const response = await axios.get('http://127.0.0.1:8000/api/profiles');
       setProfiles(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -57,6 +58,15 @@ const Tableau = () => {
 
   const toggleDropdown = (profileId) => {
     setDropdownOpen(dropdownOpen === profileId ? null : profileId);
+  };
+
+  const handleDelete = async (profileId) => {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/delete/${profileId}`);
+      setProfiles(profiles.filter(profile => profile.id !== profileId));
+    } catch (error) {
+      console.error('Error deleting profile:', error);
+    }
   };
 
   return (
@@ -135,8 +145,8 @@ const Tableau = () => {
                     <th scope="col" className="px-4 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">ID</th>
                     <th scope="col" className="px-4 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">Nom</th>
                     <th scope="col" className="px-4 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">Prénom</th>
-                    <th scope="col" className="px-4 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">E-mail</th>
-                    <th scope="col" className="px-4 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">Téléphone</th>
+                    <th scope="col" className="px-4 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                    <th scope="col" className="px-4 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">Numéro de tel</th>
                     <th scope="col" className="px-4 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">Date de naissance</th>
                     <th scope="col" className="px-4 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">Sexe</th>
                     <th scope="col" className="px-4 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">Pays</th>
@@ -182,7 +192,7 @@ const Tableau = () => {
                         {dropdownOpen === profile.id && (
                           <div className="absolute z-10 right-0 mt-2 w-44 bg-white divide-y divide-gray-100 rounded-lg shadow-lg">
                             <ul className="py-2 text-sm text-gray-700">
-                            <li>
+                              <li>
                                 <a href="#" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
                                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m2 0h.01M7 16h10M5 8h14m1-5h-3.59a2 2 0 00-1.42.59L9.41 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V5a2 2 0 00-2-2z" />
@@ -191,20 +201,24 @@ const Tableau = () => {
                                 </a>
                               </li>
                               <li>
-                                <a href="#" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
+                                <Link to={`/profile/update/${profile.id}`} className="block px-4 py-2 hover:bg-gray-100 flex items-center">
                                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12H9m12 0h-3.59a2 2 0 00-1.42.59L9.41 18H4a2 2 0 01-2-2V4a2 2 0 012-2h16a2 2 0 012 2v16a2 2 0 01-2 2z" />
                                   </svg>
                                   Modifier
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="#" className="block px-4 py-2 hover:bg-gray-100 flex items-center">
+                                <Link
+                                  href="#"
+                                  className="block px-4 py-2 hover:bg-gray-100 flex items-center"
+                                  onClick={() => handleDelete(profile.id)}
+                                >
                                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                                   </svg>
                                   Supprimer
-                                </a>
+                                </Link>
                               </li>
                             </ul>
                           </div>
