@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
+import DashboardCopy from './pages/DashboardCopy';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
@@ -15,6 +16,7 @@ const AppRouter = () => (
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/DashboardCopy" element={<DashboardCopy />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/tableau" element={<Tableau />} />
           <Route path="/profile/update/:id" element={<UpdateProfile/>} />
