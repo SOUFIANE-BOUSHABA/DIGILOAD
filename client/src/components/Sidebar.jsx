@@ -16,11 +16,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   return (
-<<<<<<< HEAD
-    <div className="sidebar sticky pl-4 z-40  top-0 bg-white shadow-md hover:shadow-none flex flex-col">
-=======
     <div className="sidebar sticky pl-4 z-40 top-0 bg-white shadow-md hover:shadow-none flex flex-col">
->>>>>>> b0a78b9ee7639f4377ef6cb57732d4fd3ab72d8a
       <div className="p-6 flex items-center justify-between">
         <img src={logo} alt="Logo" className="h-10" />
       </div>
