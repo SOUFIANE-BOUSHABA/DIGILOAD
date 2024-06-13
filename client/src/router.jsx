@@ -24,7 +24,7 @@ const AppRouter = () => (
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/mail" element={<Mail />} />
           <Route path="/workflow" element={<Workflow />} />
-          <Route path="/organisme" element={<organisme />} />
+          <Route path="/organisme" element={<Organisme />} />
           <Route path="/profile/update/:id" element={<UpdateProfile/>} />
       </Route>
      
