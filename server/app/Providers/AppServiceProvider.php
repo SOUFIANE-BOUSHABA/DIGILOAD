@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -36,6 +36,16 @@ class AppServiceProvider extends ServiceProvider
             \App\Services\Contracts\ProfileServiceInterface::class,
             \App\Services\Implementations\ProfileService::class
         );
+
+        $this->app->bind(
+            \App\Repositories\Contracts\MailRepositoryInterface::class,
+            \App\Repositories\Implementations\MailRepository::class
+        );
+    
+        $this->app->bind(
+            \App\Services\Contracts\MailServiceInterface::class,
+            \App\Services\Implementations\MailService::class
+        );
     }
 
     /**
@@ -46,6 +56,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+
+        Schema::defaultStringLength(191);
 
     }
 }

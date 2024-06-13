@@ -54,4 +54,11 @@ class ProfileController extends Controller
         $profile = $this->profileService->getAll();
         return response()->json($profile, 200);
     }
+
+    // get all countries from profile
+    public function getAllCountrie(){
+        $profile = $this->profileService->getAllCountrie();
+        return response()->json($profile, 200);
+
+    }
 }

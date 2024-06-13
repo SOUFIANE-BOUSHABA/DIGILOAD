@@ -13,4 +13,6 @@ interface ProfileServiceInterface
     public function getOne($id);
 
     public function getAll();
+
+    public function getAllCountrie();
 }

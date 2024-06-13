@@ -44,4 +44,9 @@ class ProfileService implements ProfileServiceInterface
         return Profile::all();
     }
 
+    public function getAllCountrie(){
+        // i want  distinct countries
+        return Profile::distinct()->pluck('Pays');
+    }
+
 }
