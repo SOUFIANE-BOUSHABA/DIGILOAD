@@ -8,6 +8,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Tableau from './pages/Tableau';
 import UpdateProfile from './pages/UpdateProfile'; 
 import Analytics from './pages/Analytics'; 
+import Mail from './pages/Mail'; 
 
 const AppRouter = () => (
   <Router>
@@ -19,6 +20,7 @@ const AppRouter = () => (
           <Route path="/profile" element={<Profile />} />
           <Route path="/tableau" element={<Tableau />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path="/mail" element={<Mail />} />
           <Route path="/profile/update/:id" element={<UpdateProfile/>} />
       </Route>
      
