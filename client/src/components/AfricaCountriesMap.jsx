@@ -5161,7 +5161,7 @@ const AfricaCountriesMap = () => {
     }, []);
   
     return (
-      <div id="map" className="w-[400px] h-[500px]  rounded-md  bg-white" style={{zIndex: '1'}} >
+      <div id="map" className="w-[400px] h-[500px]  rounded-md  bg-slate-50" style={{zIndex: '1'}} >
       </div>
     );
   };
