@@ -17,7 +17,7 @@ const Mail = () => {
                 </div>
               </td>
               <td style="padding: 16px 64px 16px 8px;" width="50%">
-                <img src="images/sbc-email-cover.png" width="256" height="256" alt="">
+                <img src="src/assets/img/sbc-email-cover.png" width="256" height="256" alt="">
               </td>
             </tr>
           </table>
