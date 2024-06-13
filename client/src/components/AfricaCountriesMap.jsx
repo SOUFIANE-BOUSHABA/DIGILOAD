@@ -5160,7 +5160,7 @@ const AfricaCountriesMap = () => {
     }, []);
   
     return (
-      <div id="map" className="w-[400px] h-[500px]  rounded-md border-2 bg-white" >
+      <div id="map" className="w-[400px] h-[500px]  rounded-md  bg-white" style={{zIndex: '1'}} >
       </div>
     );
   };
