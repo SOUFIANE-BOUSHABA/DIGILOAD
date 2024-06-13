@@ -9,6 +9,7 @@ import Tableau from './pages/Tableau';
 import UpdateProfile from './pages/UpdateProfile'; 
 import Analytics from './pages/Analytics'; 
 import Mail from './pages/Mail'; 
+import Workflow from './pages/Workflow';
 
 const AppRouter = () => (
   <Router>
@@ -21,6 +22,7 @@ const AppRouter = () => (
           <Route path="/tableau" element={<Tableau />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/mail" element={<Mail />} />
+          <Route path="/workflow" element={<Workflow />} />
           <Route path="/profile/update/:id" element={<UpdateProfile/>} />
       </Route>
      
